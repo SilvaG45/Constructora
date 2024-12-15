@@ -13,3 +13,31 @@ class SubcontratistaService:
 
     def listar_todos(self):
         return self.repository.listar_todos()
+
+    def actualizar_subcontratista(self, subcontratista):
+        self.repository.actualizar(subcontratista)
+
+    def eliminar_subcontratista(self, subcontratista_id):
+        self.repository.eliminar(subcontratista_id)
+
+    def asignar_a_proyecto(self, subcontratista_id, proyecto):
+        subcontratista = self.obtener_subcontratista(subcontratista_id)
+        if subcontratista:
+            if subcontratista.asignarAProyecto(proyecto):
+                self.actualizar_subcontratista(subcontratista)
+                return subcontratista
+        return None
+
+    def liberar_de_proyecto(self, subcontratista_id, proyecto):
+        subcontratista = self.obtener_subcontratista(subcontratista_id)
+        if subcontratista:
+            if subcontratista.liberarDeProyecto(proyecto):
+                self.actualizar_subcontratista(subcontratista)
+                return subcontratista
+        return None
+
+    def obtener_proyectos_asignados(self, subcontratista_id):
+        subcontratista = self.obtener_subcontratista(subcontratista_id)
+        if subcontratista:
+            return subcontratista.obtenerProyectosAsignados()
+        return None

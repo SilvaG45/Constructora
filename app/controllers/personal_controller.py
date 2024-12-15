@@ -24,3 +24,24 @@ def obtener_personal(personal_id):
 def listar_personal():
     personal = personal_service.listar_todos()
     return jsonify([p.__dict__ for p in personal]), 200
+
+# Endpoint para asignar un proyecto a un personal
+@personal_blueprint.route('/<int:personal_id>/proyectos', methods=['POST'])
+def asignar_proyecto(personal_id):
+    data = request.json
+    proyecto_id = data.get("proyecto_id")
+    if not proyecto_id:
+        return jsonify({"error": "El campo 'proyecto_id' es obligatorio"}), 400
+
+    personal = personal_service.asignar_a_proyecto(personal_id, proyecto_id)
+    if personal:
+        return jsonify({"message": f"Proyecto {proyecto_id} asignado a personal {personal_id} exitosamente"}), 200
+    return jsonify({"error": "Personal no encontrado"}), 404
+
+# Endpoint para obtener proyectos asignados a un personal
+@personal_blueprint.route('/<int:personal_id>/proyectos', methods=['GET'])
+def obtener_proyectos_asignados(personal_id):
+    proyectos = personal_service.obtener_proyectos_asignados(personal_id)
+    if proyectos is not None:
+        return jsonify({"proyectos": proyectos}), 200
+    return jsonify({"error": "Personal no encontrado"}), 404
