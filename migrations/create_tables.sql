@@ -20,3 +20,21 @@ CREATE TABLE IF NOT EXISTS proyectos (
     fecha_estimacion_fin DATE NOT NULL,
     porcentaje_avance REAL NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS clientes (
+    id INTEGER PRIMARY KEY,
+    nombre TEXT NOT NULL,
+    direccion TEXT NOT NULL,
+    contacto TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS contratos (
+    id INTEGER PRIMARY KEY,
+    monto REAL NOT NULL,
+    condiciones TEXT NOT NULL,
+    estado TEXT NOT NULL,
+    cliente INTEGER NOT NULL,
+    /*proyecto INTEGER,*/
+    FOREIGN KEY (cliente) REFERENCES clientes(id)
+    /*FOREIGN KEY (proyecto) REFERENCES proyectos(id)*/
+);
