@@ -5,10 +5,11 @@ from icecream import ic
 class SQLiteProyectoRepository:
     def agregar(self, proyecto):
         ic(proyecto)
+        ic(proyecto.porcentaje_avance)
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO proyectos (nombre, presupuesto_inicial, fecha_inicio, fecha_estimacion_fin, porcentaje_avance) VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO proyectos (nombre, presupuesto_inicial, fecha_inicio, fecha_estimacion_fin) VALUES (?, ?, ?, ?, ?)",
             (proyecto.nombre, proyecto.presupuesto_inicial, proyecto.fecha_inicio, proyecto.fecha_estimacion_fin, proyecto.porcentaje_avance)
         )
         proyecto.id = cursor.lastrowid

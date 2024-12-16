@@ -9,12 +9,7 @@ proyecto_service = ProyectoService()
 @proyecto_blueprint.route('/', methods=['POST'])
 def registrar_proyecto():
     data = request.json
-    proyecto = Proyecto(
-        nombre=data['nombre'],
-        presupuesto_inicial=data['presupuesto_inicial'],
-        fecha_inicio=data['fecha_inicio'],
-        fecha_estimacion_fin=data['fecha_estimacion_fin'],
-    )
+    proyecto= Proyecto(**data)
     ic(proyecto.__str__())
     proyecto_service.registrar_proyecto(proyecto)
     return jsonify({"message": "Proyecto registrado exitosamente"}), 201

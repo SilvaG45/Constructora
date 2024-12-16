@@ -21,12 +21,12 @@ CREATE TABLE IF NOT EXISTS subcontratistas (
     disponible BOOLEAN DEFAULT 1
 );
 
-CREATE TABLE IF NOT EXISTS subcontratista_proyectos (
-    subcontratista_id INTEGER NOT NULL,
-    proyecto_id INTEGER NOT NULL,
-    FOREIGN KEY (subcontratista_id) REFERENCES subcontratistas (id),
-    FOREIGN KEY (proyecto_id) REFERENCES proyectos (id)
-);
+-- CREATE TABLE IF NOT EXISTS subcontratista_proyectos (
+--     subcontratista_id INTEGER NOT NULL,
+--     proyecto_id INTEGER NOT NULL,
+--     FOREIGN KEY (subcontratista_id) REFERENCES subcontratistas (id),
+--     FOREIGN KEY (proyecto_id) REFERENCES proyectos (id)
+-- );
 
 CREATE TABLE IF NOT EXISTS clientes (
     id INTEGER PRIMARY KEY,
