@@ -5,11 +5,10 @@ class Proyecto:
         self.fecha_inicio = fecha_inicio
         self.fecha_estimacion_fin = fecha_estimacion_fin
         self.porcentaje_avance = porcentaje_avance
-        self.contrato = None
-        self.materiales = None
-        self.personal_asignado = None
-        self.subcontratistas = None
-        self.id = None  # Asume que el ID es autogenerado por la base de datos
+        self.contrato = None  # Ningún contrato asignado inicialmente
+        self.materiales = {}  # Diccionario vacío para materiales
+        self.personal_asignado = {}  # Diccionario vacío para personal
+        self.subcontratistas = {}  # Diccionario vacío para subcontratistas
         
     # def actualizar_detalles(self, presupuesto, fecha):
     #     self.presupuesto_inicial = presupuesto

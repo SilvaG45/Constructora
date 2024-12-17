@@ -11,6 +11,13 @@ app = Flask(__name__)
 app.register_blueprint(personal_blueprint, url_prefix="/api/personal")
 app.register_blueprint(subcontratista_blueprint, url_prefix="/api/subcontratista")
 app.register_blueprint(proyecto_blueprint, url_prefix="/api/proyecto")
+app.register_blueprint(proyecto_blueprint, url_prefix="/api/cliente")
+app.register_blueprint(proyecto_blueprint, url_prefix="/api/proveedor")
+app.register_blueprint(proyecto_blueprint, url_prefix="/api/pedido")
+app.register_blueprint(proyecto_blueprint, url_prefix="/api/material")
+app.register_blueprint(proyecto_blueprint, url_prefix="/api/contrato")
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
