@@ -45,3 +45,32 @@ CREATE TABLE IF NOT EXISTS contratos (
     FOREIGN KEY (cliente) REFERENCES clientes(id)
     /*FOREIGN KEY (proyecto) REFERENCES proyectos(id)*/
 );
+
+CREATE TABLE IF NOT EXISTS proveedores (
+    id INTEGER PRIMARY KEY,
+    nombre TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS materiales (
+    id INTEGER PRIMARY KEY,
+    nombre TEXT NOT NULL,
+    cantidad_disponible INTEGER NOT NULL,
+    precio REAL NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS pedidos (
+    id INTEGER PRIMARY KEY,
+    numero_pedido TEXT NOT NULL,
+    fecha_pedido TEXT NOT NULL,
+    proveedor_id INTEGER NOT NULL,
+    FOREIGN KEY (proveedor_id) REFERENCES proveedores (id)
+);
+
+CREATE TABLE IF NOT EXISTS pedido_material (
+    pedido_id INTEGER NOT NULL,
+    material_id INTEGER NOT NULL,
+    cantidad INTEGER NOT NULL,
+    PRIMARY KEY (pedido_id, material_id),
+    FOREIGN KEY (pedido_id) REFERENCES pedidos (id),
+    FOREIGN KEY (material_id) REFERENCES materiales (id)
+);
