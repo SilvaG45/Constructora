@@ -2,28 +2,73 @@ import sqlite3
 from domain.entities.cliente import Cliente
 
 class SQLiteClienteRepository:
+    def __init__(self):
+        self.conn = sqlite3.connect('database.db', check_same_thread=False)
+
     def agregar(self, cliente):
-        conn = sqlite3.connect('database.db')
-        cursor = conn.cursor()
+        cursor = self.conn.cursor()
         cursor.execute(
             "INSERT INTO clientes (id, nombre, direccion, contacto, proyectos) VALUES (?, ?, ?, ?, ?)",
             (cliente.id, cliente.nombre, cliente.direccion, cliente.contacto, cliente.proyectos)
         )
-        conn.commit()
-        conn.close()
+        self.conn.commit()
 
     def obtener_por_id(self, cliente_id):
-        conn = sqlite3.connect('database.db')
-        cursor = conn.cursor()
-        cursor.execute("SELECT id, nombre, direccion, contacto, proyectos FROM clientes WHERE id = ?", (cliente_id,))
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT * FROM clientes WHERE id = ?", (cliente_id,))
         row = cursor.fetchone()
-        conn.close()
-        return Cliente(*row) if row else None
+        if row:
+            return Cliente(
+                id=row[0],
+                nombre=row[1],
+                direccion=row[2],
+                contacto=row[3],
+                proyectos=row[4]
+            )  
+        return None
     
     def listar_todos(self):
-        conn = sqlite3.connect('database.db')
-        cursor = conn.cursor()
-        cursor.execute("SELECT id, nombre, direccion, contacto, proyectos FROM clientes")
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT * FROM clientes")
         rows = cursor.fetchall()
-        conn.close()
-        return [Cliente(*row) for row in rows]
+        return [
+            Cliente(
+                id=row[0],
+                nombre=row[1],
+                direccion=row[2],
+                contacto=row[3],
+                proyectos=row[4]
+            ) 
+            for row in rows
+        ]
+    
+    def coincide_con(self, infoCliente):
+        cursor = self.conn.cursor()
+        query = "SELECT * FROM clientes WHERE nombre = ? OR direccion = ? OR contacto = ?"
+        cursor.execute(query, (infoCliente.get("nombre"), infoCliente.get("direccion"), infoCliente.get("contacto")))
+        rows = cursor.fetchall()
+        return [
+            Cliente(
+                id=row[0],
+                nombre=row[1],
+                direccion=row[2],
+                contacto=row[3],
+                proyectos=row[4].split(",") if row[4] else []
+            ) 
+            for row in rows
+        ]
+
+    def agregar_cliente(self, infoCliente):
+        cliente = Cliente(
+            id=infoCliente["id"],  
+            nombre=infoCliente["nombre"],
+            direccion=infoCliente["direccion"],
+            contacto=infoCliente["contacto"],
+            proyectos=infoCliente.get("proyectos", [])
+        )
+        self.agregar(cliente)
+        return True
+
+    def obtener_proyectos(self, cliente_id):
+        cliente = self.obtener_por_id(cliente_id)
+        return cliente.proyectos if cliente else []

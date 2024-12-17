@@ -23,3 +23,22 @@ def obtener_cliente(cliente_id):
 def listar_clientes():
     clientes = cliente_service.listar_todos()
     return jsonify([c.__dict__ for c in clientes]), 200
+
+@cliente_blueprint.route('/coincide', methods=['POST'])
+def buscar_clientes():
+    data = request.json
+    clientes = cliente_service.coincide_con(data)
+    return jsonify([c.__dict__ for c in clientes]), 200
+
+@cliente_blueprint.route('/agregar', methods=['POST'])
+def agregar_cliente():
+    data = request.json
+    cliente_service.agregar_cliente(data)
+    return jsonify({"message": "Cliente agregado exitosamente"}), 201
+
+@cliente_blueprint.route('/<int:cliente_id>/proyectos', methods=['GET'])
+def obtener_proyectos(cliente_id):
+    proyectos = cliente_service.obtener_proyectos(cliente_id)
+    if proyectos:
+        return jsonify(proyectos), 200
+    return jsonify({"error": "No se encontraron proyectos para este cliente"}), 404

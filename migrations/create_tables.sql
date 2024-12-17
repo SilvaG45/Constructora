@@ -41,9 +41,9 @@ CREATE TABLE IF NOT EXISTS contratos (
     condiciones TEXT NOT NULL,
     estado TEXT NOT NULL,
     cliente INTEGER NOT NULL,
-    /*proyecto INTEGER,*/
-    FOREIGN KEY (cliente) REFERENCES clientes(id)
-    /*FOREIGN KEY (proyecto) REFERENCES proyectos(id)*/
+    proyecto INTEGER NOT NULL,
+    FOREIGN KEY (cliente) REFERENCES clientes(id),
+    FOREIGN KEY (proyecto) REFERENCES proyectos(id)
 );
 
 CREATE TABLE IF NOT EXISTS proveedores (
