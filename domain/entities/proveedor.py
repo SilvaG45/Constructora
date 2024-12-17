@@ -1,4 +1,4 @@
-import entities.pedido as Pedido
+import domain.entities.pedido as Pedido
 class Proveedor:    
     def __init__(self, nombre):
         self.nombre = nombre
