@@ -9,7 +9,7 @@ class SQLiteProyectoRepository:
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO proyectos (nombre, presupuesto_inicial, fecha_inicio, fecha_estimacion_fin) VALUES (?, ?, ?, ?, ?)",
+            "INSERT INTO proyectos (nombre, presupuesto_inicial, fecha_inicio, fecha_estimacion_fin, porcentaje_avance) VALUES (?, ?, ?, ?, ?)",
             (proyecto.nombre, proyecto.presupuesto_inicial, proyecto.fecha_inicio, proyecto.fecha_estimacion_fin, proyecto.porcentaje_avance)
         )
         proyecto.id = cursor.lastrowid

@@ -9,7 +9,6 @@ personal_service = PersonalService()
 def registrar_personal():
     data = request.json
     personal = Personal(**data)
-    print(personal.__dict__)
     personal_service.registrar_personal(personal)
     return jsonify({"message": "Personal registrado exitosamente"}), 201
 
