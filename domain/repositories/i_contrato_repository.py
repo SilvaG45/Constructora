@@ -12,3 +12,11 @@ class IContratoRepository(ABC):
     @abstractmethod
     def listar_todos(self):
         pass
+
+    @abstractmethod
+    def registrar_contrato(self, infoContrato, cliente_id):
+        pass
+
+    @abstractmethod
+    def actualizar_estado(self, estado):
+        pass

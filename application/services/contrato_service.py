@@ -13,3 +13,9 @@ class ContratoService:
     
     def listar_todos(self):
         return self.repository.listar_todos()
+    
+    def registrar_contrato_info(self, info_contrato, cliente):
+        self.repository.registrarContrato(info_contrato, cliente)
+
+    def actualizar_estado_contrato(self, contrato_id, estado):
+        self.repository.actualizarEstado(contrato_id, estado)
