@@ -1,5 +1,6 @@
 class Material:
     def __init__(self, nombre, cantidad_disponible, precio):
+            self.id = None
             self.nombre = nombre
             self.cantidad_disponible = cantidad_disponible
             self.precio = precio

@@ -8,8 +8,8 @@ class SQLiteSubcontratistaRepository:
     def agregar(self, subcontratista):
         cursor = self.conn.cursor()
         cursor.execute(
-            "INSERT INTO subcontratistas (id, nombre, especialidad, disponible) VALUES (?, ?, ?, ?)",
-            (subcontratista.id, subcontratista.nombre, subcontratista.especialidad, subcontratista.disponible)
+            "INSERT INTO subcontratistas (nombre, especialidad, disponible) VALUES (?, ?, ?)",
+            (subcontratista.nombre, subcontratista.especialidad, subcontratista.disponible)
         )
         self.conn.commit()
 

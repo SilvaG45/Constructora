@@ -8,9 +8,10 @@ class SQLiteClienteRepository:
     def agregar(self, cliente):
         cursor = self.conn.cursor()
         cursor.execute(
-            "INSERT INTO clientes (id, nombre, direccion, contacto, proyectos) VALUES (?, ?, ?, ?, ?)",
-            (cliente.id, cliente.nombre, cliente.direccion, cliente.contacto, cliente.proyectos)
+            "INSERT INTO clientes (nombre, direccion, contacto) VALUES (?, ?, ?)",
+            (cliente.nombre, cliente.direccion, cliente.contacto)
         )
+        cliente.id = cursor.lastrowid
         self.conn.commit()
 
     def obtener_por_id(self, cliente_id):

@@ -8,8 +8,8 @@ class SQLitePedidoRepository:
     def agregar(self, pedido):
         cursor = self.conn.cursor()
         cursor.execute(
-            "INSERT INTO pedidos (id, numero_pedido, fecha_pedido, proveedor_id) VALUES (?, ?, ?, ?)",
-            (pedido.id, pedido.numero_pedido, pedido.fecha_pedido, pedido.proveedor_id)
+            "INSERT INTO pedidos (numero_pedido, fecha_pedido, proveedor_id) VALUES (?, ?, ?)",
+            (pedido.numero_pedido, pedido.fecha_pedido, pedido.proveedor_id)
         )
         self.conn.commit()
 

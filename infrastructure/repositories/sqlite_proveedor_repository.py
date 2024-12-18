@@ -8,9 +8,10 @@ class SQLiteProveedorRepository:
     def agregar(self, proveedor):
         cursor = self.conn.cursor()
         cursor.execute(
-            "INSERT INTO proveedores (id, nombre) VALUES (?, ?)",
-            (proveedor.id, proveedor.nombre)
+            "INSERT INTO proveedores (nombre) VALUES (?)",
+            (proveedor.nombre)
         )
+        proveedor.id = cursor.lastrowid
         self.conn.commit()
 
     def obtener_por_id(self, proveedor_id):

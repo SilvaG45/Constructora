@@ -8,9 +8,10 @@ class SQLiteMaterialRepository:
     def agregar(self, material):
         cursor = self.conn.cursor()
         cursor.execute(
-            "INSERT INTO materiales (id, nombre, cantidad_disponible, precio) VALUES (?, ?, ?, ?)",
-            (material.id, material.nombre, material.cantidad_disponible, material.precio)
+            "INSERT INTO materiales (nombre, cantidad_disponible, precio) VALUES (?, ?, ?)",
+            (material.nombre, material.cantidad_disponible, material.precio)
         )
+        material.id = cursor.lastrowid
         self.conn.commit()
 
     def obtener_por_id(self, material_id):

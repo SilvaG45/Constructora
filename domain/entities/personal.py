@@ -1,6 +1,6 @@
 class Personal:
-    def __init__(self, id, nombre, rol, horas_trabajadas=0):
-        self.id = id
+    def __init__(self, nombre, rol, horas_trabajadas=0):
+        self.id = None
         self.nombre = nombre
         self.rol = rol
         self.horas_trabajadas = horas_trabajadas
