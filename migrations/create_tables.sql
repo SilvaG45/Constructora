@@ -49,13 +49,11 @@ CREATE TABLE IF NOT EXISTS proveedores (
 CREATE TABLE IF NOT EXISTS materiales (
     material_id INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT NOT NULL,
-    cantidad_disponible INTEGER NOT NULL,
     precio REAL NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS pedidos (
     pedido_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    numero_pedido TEXT NOT NULL,
     fecha_pedido TEXT NOT NULL,
     proveedor_id INTEGER NOT NULL,
     FOREIGN KEY (proveedor_id) REFERENCES proveedores (proveedor_id)
@@ -93,12 +91,4 @@ CREATE TABLE IF NOT EXISTS proyecto_personal (
     PRIMARY KEY (proyecto_id, personal_id),
     FOREIGN KEY (proyecto_id) REFERENCES proyectos (proyecto_id),
     FOREIGN KEY (personal_id) REFERENCES personal (personal_id)
-);
-
-CREATE TABLE IF NOT EXISTS cliente_proyectos (
-    cliente_id INTEGER NOT NULL,
-    proyecto_id INTEGER NOT NULL,
-    PRIMARY KEY (cliente_id, proyecto_id),
-    FOREIGN KEY (cliente_id) REFERENCES clientes (cliente_id),
-    FOREIGN KEY (proyecto_id) REFERENCES proyectos (proyecto_id)
 );
