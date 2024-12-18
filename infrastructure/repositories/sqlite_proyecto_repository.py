@@ -4,8 +4,6 @@ from icecream import ic
 
 class SQLiteProyectoRepository:
     def agregar(self, proyecto):
-        ic(proyecto)
-        ic(proyecto.porcentaje_avance)
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
         cursor.execute(

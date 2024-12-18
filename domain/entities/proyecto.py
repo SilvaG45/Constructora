@@ -56,33 +56,17 @@ class Proyecto:
     def contrato(self):
         return self._contrato
 
-    @contrato.setter
-    def contrato(self, value):
-        self._contrato = value
-
     @property
     def materiales(self):
         return self._materiales
-
-    @materiales.setter
-    def materiales(self, value):
-        self._materiales = value
 
     @property
     def personal_asignado(self):
         return self._personal_asignado
 
-    @personal_asignado.setter
-    def personal_asignado(self, value):
-        self._personal_asignado = value
-
     @property
     def subcontratistas(self):
         return self._subcontratistas
-
-    @subcontratistas.setter
-    def subcontratistas(self, value):
-        self._subcontratistas = value
 
     # Métodos adicionales
     def asignar_contrato(self, contrato):

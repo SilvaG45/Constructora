@@ -26,7 +26,6 @@ def listar_proyectos():
     proyectos = proyecto_service.listar_todos()
     return jsonify([p.__dict__ for p in proyectos]), 200
 
-#actualizar_proyecto y eliminar_proyecto
 @proyecto_blueprint.route('/', methods=['PUT'])
 def actualizar_proyecto():
     data = request.json
