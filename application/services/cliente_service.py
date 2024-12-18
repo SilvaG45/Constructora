@@ -31,3 +31,5 @@ class ClienteService:
     def obtener_proyectos(self, cliente_id):
         cliente = self.repository.obtener_por_id(cliente_id)
         return cliente.proyectos if cliente else []
+    
+    

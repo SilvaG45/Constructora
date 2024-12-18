@@ -17,5 +17,14 @@ class ProyectoService:
     def actualizar_proyecto(self, proyecto):
         self.repository.actualizar(proyecto)
         
+    def asignar_contrato(self, proyecto):
+        self.repository.asignar_contrato(proyecto)
+        
     def eliminar_proyecto(self, proyecto_id):
         self.repository.eliminar(proyecto_id)
+        
+    def asignar_contrato(self, proyecto, contrato):
+        # Asignar contrato a proyecto tambien es una operacion de la entidad proyecto
+        proyecto.asignar_contrato(contrato)
+        self.actualizar_proyecto(proyecto)
+        return proyecto        

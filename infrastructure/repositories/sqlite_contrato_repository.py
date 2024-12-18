@@ -8,8 +8,8 @@ class SQLiteContratoRepository:
     def agregar(self, contrato):
         cursor = self.conn.cursor()
         cursor.execute(
-            "INSERT INTO contratos (monto, condiciones, estado, cliente, proyecto) VALUES (?, ?, ?, ?, ?)",
-            (contrato.monto, contrato.condiciones, contrato.estado, contrato.cliente, contrato.proyecto)
+            "INSERT INTO contratos (monto, condiciones, estado, cliente_id, proyecto_id) VALUES (?, ?, ?, ?, ?)",
+            (contrato.monto, contrato.condiciones, contrato.estado, contrato.cliente.id, contrato.proyecto.id)
         )
         contrato.id = cursor.lastrowid
         self.conn.commit()

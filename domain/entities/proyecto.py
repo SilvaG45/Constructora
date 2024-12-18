@@ -6,7 +6,6 @@ class Proyecto:
         self._fecha_inicio = fecha_inicio
         self._fecha_estimacion_fin = fecha_estimacion_fin
         self._porcentaje_avance = porcentaje_avance
-        self._contrato = None  # Ningún contrato asignado inicialmente 
         self._materiales = []  # Diccionario vacío para materiales
         self._personal_asignado = []  # Diccionario vacío para personal
         self._subcontratistas = []  # Diccionario vacío para subcontratistas
@@ -55,6 +54,10 @@ class Proyecto:
     @property
     def contrato(self):
         return self._contrato
+    
+    @contrato.setter
+    def contrato(self, value):
+        self._contrato = value
 
     @property
     def materiales(self):
@@ -69,8 +72,6 @@ class Proyecto:
         return self._subcontratistas
 
     # Métodos adicionales
-    def asignar_contrato(self, contrato):
-        self.contrato = contrato
 
     def agregar_material(self, material_id, cantidad):
         self.materiales[material_id] = cantidad
@@ -85,4 +86,5 @@ class Proyecto:
         return self.porcentaje_avance
 
     def __str__(self):
-        return f"{self.nombre} - {self.presupuesto_inicial} - {self.fecha_inicio} - {self.fecha_estimacion_fin} - {self.porcentaje_avance}"
+        id_str = f"{self._id} - " if self._id is not None else ""
+        return f"{id_str}{self.nombre} - {self.presupuesto_inicial} - {self.fecha_inicio} - {self.fecha_estimacion_fin} - {self.porcentaje_avance}"

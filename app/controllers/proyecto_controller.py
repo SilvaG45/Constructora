@@ -41,3 +41,18 @@ def eliminar_proyecto(proyecto_id):
         proyecto_service.eliminar_proyecto(proyecto_id)
         return jsonify({"message": "Proyecto eliminado exitosamente"}), 200
     return jsonify({"error": "Proyecto no encontrado"}), 404
+
+#asignar contrato a proyecto
+@proyecto_blueprint.route('/<int:proyecto_id>/contrato/<int:contrato_id>', methods=['PUT'])
+def asignar_contrato_a_proyecto(proyecto_id, contrato_id):
+    proyecto = proyecto_service.obtener_proyecto(proyecto_id)
+    if not proyecto:
+        return jsonify({"error": "Proyecto no encontrado"}), 404
+
+    contrato = proyecto_service.obtener_contrato(contrato_id)
+    if not contrato:
+        return jsonify({"error": "Contrato no encontrado"}), 404
+
+    proyecto_service.asignar_contrato(proyecto, contrato)
+    return jsonify({"message": f"Contrato {contrato_id} asignado al proyecto {proyecto_id} exitosamente"}), 200
+

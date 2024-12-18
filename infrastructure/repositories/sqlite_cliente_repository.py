@@ -24,7 +24,6 @@ class SQLiteClienteRepository:
                 nombre=row[1],
                 direccion=row[2],
                 contacto=row[3],
-                proyectos=row[4]
             )  
         return None
     

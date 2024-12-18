@@ -25,9 +25,7 @@ CREATE TABLE IF NOT EXISTS proyectos (
     presupuesto_inicial REAL NOT NULL,
     fecha_inicio DATE NOT NULL,
     fecha_estimacion_fin DATE NOT NULL,
-    porcentaje_avance REAL NOT NULL,
-    contrato_id INTEGER, 
-    FOREIGN KEY (contrato_id) REFERENCES contratos (contrato_id)
+    porcentaje_avance REAL NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS contratos (

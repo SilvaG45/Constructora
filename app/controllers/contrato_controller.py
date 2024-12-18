@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from application.services.contrato_service import ContratoService
 from domain.entities.contrato import Contrato
+from icecream import ic
 
 contrato_blueprint = Blueprint('contrato', __name__)
 contrato_service = ContratoService()
@@ -8,7 +9,24 @@ contrato_service = ContratoService()
 @contrato_blueprint.route('/', methods=['POST'])
 def registrar_contrato():
     data = request.json
-    contrato = Contrato(**data)
+    # buscar el proyecto por el id y crear el contrato
+    proyecto_id = data.get("proyecto_id")
+    if not proyecto_id:
+        return jsonify({"error": "El campo 'proyecto_id' es requerido"}), 400
+    proyecto= contrato_service.obtener_proyecto(proyecto_id)
+    cliente_id = data.get("cliente_id")
+    if not cliente_id:
+        return jsonify({"error": "El campo 'cliente_id' es requerido"}), 400
+    cliente= contrato_service.obtener_cliente(cliente_id)
+    # creamos el contrato con los datos recibidos pero no con proyecto_id sino con el objeto proyecto
+    contrato = Contrato(
+        monto=data.get("monto"),
+        condiciones=data.get("condiciones"),
+        estado=data.get("estado"),
+        proyecto=proyecto,
+        cliente=cliente
+    )
+    print(contrato)
     contrato_service.registrar_contrato(contrato)
     return jsonify({"message": "Contrato registrado exitosamente"}), 201
 

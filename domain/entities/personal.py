@@ -21,3 +21,7 @@ class Personal:
     def obtenerProyectosAsignados(self):
         """Devuelve la lista de proyectos asignados."""
         return self.proyectos
+    
+    def __str__(self):
+        id_str = f"{self.id} - " if self.id is not None else ""
+        return f"{id_str}{self.nombre} - {self.rol} - {self.horas_trabajadas}"

@@ -17,3 +17,7 @@ class Pedido:
     def consultar_historial_pedidos(self, session):
         """Devuelve el historial de pedidos almacenados en la base de datos."""
         return session.query(Pedido).all()
+    
+    def __str__(self):
+        id_str = f"{self.id} - " if self.id is not None else ""
+        return f"{id_str}{self.fecha_pedido} - {self.materiales_suministrados}"

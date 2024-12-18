@@ -19,3 +19,6 @@ class Proveedor:
         """Agrega un material suministrado si no está ya en la lista."""
         if material not in self.materiales_suministrados:
             self.materiales_suministrados.append(material)
+            
+    def __str__(self):
+        return f"{self.nombre} - {self.materiales_suministrados}"

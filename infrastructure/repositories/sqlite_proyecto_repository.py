@@ -4,6 +4,7 @@ from icecream import ic
 
 class SQLiteProyectoRepository:
     def agregar(self, proyecto):
+        print(proyecto)
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
         cursor.execute(
@@ -47,12 +48,12 @@ class SQLiteProyectoRepository:
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
         cursor.execute(
-            "UPDATE proyecto SET nombre = ?, presupuesto_inicial = ?, fecha_inicio = ?, fecha_estimacion_fin = ?, porcentaje_avance = ? WHERE proyecto_id = ?",
+            "UPDATE proyectos SET nombre = ?, presupuesto_inicial = ?, fecha_inicio = ?, fecha_estimacion_fin = ?, porcentaje_avance = ? WHERE proyecto_id = ?",
             (proyecto.nombre, proyecto.presupuesto_inicial, proyecto.fecha_inicio, proyecto.fecha_estimacion_fin, proyecto.porcentaje_avance, proyecto.id)
         )
         conn.commit()
         conn.close()
-        
+                
     def eliminar(self, proyecto_id):
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()

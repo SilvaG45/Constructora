@@ -8,8 +8,8 @@ class SQLiteMaterialRepository:
     def agregar(self, material):
         cursor = self.conn.cursor()
         cursor.execute(
-            "INSERT INTO materiales (nombre, cantidad_disponible, precio) VALUES (?, ?, ?)",
-            (material.nombre, material.cantidad_disponible, material.precio)
+            "INSERT INTO materiales (nombre, precio) VALUES (?, ?)",
+            (material.nombre, material.precio)
         )
         material.id = cursor.lastrowid
         self.conn.commit()
@@ -32,7 +32,7 @@ class SQLiteMaterialRepository:
         cursor.execute("SELECT * FROM materiales")
         rows = cursor.fetchall()
         return [
-            Material(id=row[0], nombre=row[1], cantidad_disponible=row[2], precio=row[3])
+            Material(id=row[0], nombre=row[1], precio=row[2])
             for row in rows
         ]
 
@@ -43,11 +43,3 @@ class SQLiteMaterialRepository:
             (nuevo_precio, material_id)
         )
         self.conn.commit()
-
-    def consultar_disponibilidad(self, material_id):
-        cursor = self.conn.cursor()
-        cursor.execute("SELECT cantidad_disponible FROM materiales WHERE material_id = ?", (material_id,))
-        row = cursor.fetchone()
-        if row:
-            return row[0] > 0
-        return False

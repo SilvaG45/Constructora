@@ -5,6 +5,10 @@ class Cliente:
         self.direccion = direccion
         self.contacto = contacto
 
+    def __str__(self):
+        id_str = f"{self.id} - " if self.id is not None else ""
+        return f"{id_str}{self.nombre} - {self.contacto}"
+    
     # def coincide_con(self, infoCliente):
     #     """Verifica que la información del cliente sea la misma que los atributos."""
     #     return (
