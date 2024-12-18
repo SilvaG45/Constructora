@@ -13,7 +13,7 @@ class SQLiteProyectoRepository:
         proyecto.id = cursor.lastrowid
         conn.commit()
          # Verificar lo que se guardó
-        cursor.execute("SELECT * FROM proyectos WHERE id = ?", (cursor.lastrowid,))
+        cursor.execute("SELECT * FROM proyectos WHERE proyecto_id = ?", (cursor.lastrowid,))
         row = cursor.fetchone()
         ic(row)
         conn.close()
@@ -21,7 +21,7 @@ class SQLiteProyectoRepository:
     def obtener_por_id(self, proyecto_id):
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
-        cursor.execute("SELECT id, nombre, presupuesto_inicial, fecha_inicio, fecha_estimacion_fin, porcentaje_avance FROM proyectos WHERE id = ?", (proyecto_id,))
+        cursor.execute("SELECT proyecto_id, nombre, presupuesto_inicial, fecha_inicio, fecha_estimacion_fin, porcentaje_avance FROM proyectos WHERE proyecto_id = ?", (proyecto_id,))
         row = cursor.fetchone()
         conn.close()
         if row:
@@ -33,7 +33,7 @@ class SQLiteProyectoRepository:
     def listar_todos(self):
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
-        cursor.execute("SELECT id, nombre, presupuesto_inicial, fecha_inicio, fecha_estimacion_fin, porcentaje_avance FROM proyectos")
+        cursor.execute("SELECT proyecto_id, nombre, presupuesto_inicial, fecha_inicio, fecha_estimacion_fin, porcentaje_avance FROM proyectos")
         rows = cursor.fetchall()
         conn.close()
         proyectos = []
@@ -47,7 +47,7 @@ class SQLiteProyectoRepository:
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
         cursor.execute(
-            "UPDATE proyecto SET nombre = ?, presupuesto_inicial = ?, fecha_inicio = ?, fecha_estimacion_fin = ?, porcentaje_avance = ? WHERE id = ?",
+            "UPDATE proyecto SET nombre = ?, presupuesto_inicial = ?, fecha_inicio = ?, fecha_estimacion_fin = ?, porcentaje_avance = ? WHERE proyecto_id = ?",
             (proyecto.nombre, proyecto.presupuesto_inicial, proyecto.fecha_inicio, proyecto.fecha_estimacion_fin, proyecto.porcentaje_avance, proyecto.id)
         )
         conn.commit()
@@ -56,6 +56,6 @@ class SQLiteProyectoRepository:
     def eliminar(self, proyecto_id):
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
-        cursor.execute("DELETE FROM proyectos WHERE id = ?", (proyecto_id,))
+        cursor.execute("DELETE FROM proyectos WHERE proyecto_id = ?", (proyecto_id,))
         conn.commit()
         conn.close()

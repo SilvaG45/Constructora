@@ -16,7 +16,7 @@ class SQLiteContratoRepository:
 
     def obtener_por_id(self, contrato_id):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM contratos WHERE id = ?", (contrato_id,))
+        cursor.execute("SELECT * FROM contratos WHERE contrato_id = ?", (contrato_id,))
         row = cursor.fetchone()
         if row:
             return Contrato(
@@ -44,26 +44,11 @@ class SQLiteContratoRepository:
             ) 
             for row in rows
         ]
-    
-    def registrar_contrato(self, infoContrato, cliente):
-        cursor = self.conn.cursor()
-        cursor.execute(
-            "INSERT INTO contratos (id, monto, condiciones, estado, cliente, proyecto) VALUES (?, ?, ?, ?, ?, ?)",
-            (
-                infoContrato["id"],
-                infoContrato["monto"],
-                infoContrato["condiciones"],
-                infoContrato["estado"],
-                cliente,
-                infoContrato["proyecto"]
-            )
-        )
-        self.conn.commit()
 
     def actualizar_estado(self, contrato_id, estado):
         cursor = self.conn.cursor()
         cursor.execute(
-            "UPDATE contratos SET estado = ? WHERE id = ?",
+            "UPDATE contratos SET estado = ? WHERE contrato_id = ?",
             (estado, contrato_id)
         )
         self.conn.commit()

@@ -16,7 +16,7 @@ class SQLiteSubcontratistaRepository:
 
     def obtener_por_id(self, subcontratista_id):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM subcontratistas WHERE id = ?", (subcontratista_id,))
+        cursor.execute("SELECT * FROM subcontratistas WHERE subcontratista_id = ?", (subcontratista_id,))
         row = cursor.fetchone()
         if row:
             return Subcontratista(
@@ -39,14 +39,14 @@ class SQLiteSubcontratistaRepository:
     def actualizar(self, subcontratista):
         cursor = self.conn.cursor()
         cursor.execute(
-            "UPDATE subcontratistas SET nombre = ?, especialidad = ?, disponible = ? WHERE id = ?",
+            "UPDATE subcontratistas SET nombre = ?, especialidad = ?, disponible = ? WHERE subcontratista_id = ?",
             (subcontratista.nombre, subcontratista.especialidad, subcontratista.disponible, subcontratista.id)
         )
         self.conn.commit()
 
     def eliminar(self, subcontratista_id):
         cursor = self.conn.cursor()
-        cursor.execute("DELETE FROM subcontratistas WHERE id = ?", (subcontratista_id,))
+        cursor.execute("DELETE FROM subcontratistas WHERE subcontratista_id = ?", (subcontratista_id,))
         self.conn.commit()
 
     def asignar_a_proyecto(self, subcontratista_id, proyecto_id):
@@ -62,9 +62,9 @@ class SQLiteSubcontratistaRepository:
         """Devuelve los proyectos asignados a un subcontratista."""
         cursor = self.conn.cursor()
         cursor.execute(
-            "SELECT p.id, p.nombre, p.fecha_inicio, p.fecha_estimacion_fin "
+            "SELECT p.proyecto_id, p.nombre, p.fecha_inicio, p.fecha_estimacion_fin "
             "FROM proyectos p "
-            "INNER JOIN subcontratista_proyectos sp ON p.id = sp.proyecto_id "
+            "INNER JOIN subcontratista_proyectos sp ON p.proyecto_id = sp.proyecto_id "
             "WHERE sp.subcontratista_id = ?",
             (subcontratista_id,)
         )

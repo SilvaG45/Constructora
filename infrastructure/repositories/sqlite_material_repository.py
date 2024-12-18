@@ -16,7 +16,7 @@ class SQLiteMaterialRepository:
 
     def obtener_por_id(self, material_id):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM materiales WHERE id = ?", (material_id,))
+        cursor.execute("SELECT * FROM materiales WHERE material_id = ?", (material_id,))
         row = cursor.fetchone()
         if row:
             return Material(
@@ -39,14 +39,14 @@ class SQLiteMaterialRepository:
     def actualizar_precio(self, material_id, nuevo_precio):
         cursor = self.conn.cursor()
         cursor.execute(
-            "UPDATE materiales SET precio = ? WHERE id = ?",
+            "UPDATE materiales SET precio = ? WHERE material_id = ?",
             (nuevo_precio, material_id)
         )
         self.conn.commit()
 
     def consultar_disponibilidad(self, material_id):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT cantidad_disponible FROM materiales WHERE id = ?", (material_id,))
+        cursor.execute("SELECT cantidad_disponible FROM materiales WHERE material_id = ?", (material_id,))
         row = cursor.fetchone()
         if row:
             return row[0] > 0

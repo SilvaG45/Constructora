@@ -15,7 +15,7 @@ class SQLitePedidoRepository:
 
     def obtener_por_id(self, pedido_id):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM pedidos WHERE id = ?", (pedido_id,))
+        cursor.execute("SELECT * FROM pedidos WHERE pedido_id = ?", (pedido_id,))
         row = cursor.fetchone()
         if row:
             return Pedido(
@@ -51,9 +51,9 @@ class SQLitePedidoRepository:
     def consultar_materiales(self, pedido_id):
         cursor = self.conn.cursor()
         cursor.execute(
-            "SELECT m.id, m.nombre, pm.cantidad "
+            "SELECT m.material_id, m.nombre, pm.cantidad "
             "FROM materiales m "
-            "INNER JOIN pedido_material pm ON m.id = pm.material_id "
+            "INNER JOIN pedido_material pm ON m.material_id = pm.material_id "
             "WHERE pm.pedido_id = ?",
             (pedido_id,)
         )

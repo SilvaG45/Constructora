@@ -16,7 +16,7 @@ class SQLiteClienteRepository:
 
     def obtener_por_id(self, cliente_id):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM clientes WHERE id = ?", (cliente_id,))
+        cursor.execute("SELECT * FROM clientes WHERE cliente_id = ?", (cliente_id,))
         row = cursor.fetchone()
         if row:
             return Cliente(
@@ -69,7 +69,3 @@ class SQLiteClienteRepository:
         )
         self.agregar(cliente)
         return True
-
-    def obtener_proyectos(self, cliente_id):
-        cliente = self.obtener_por_id(cliente_id)
-        return cliente.proyectos if cliente else []

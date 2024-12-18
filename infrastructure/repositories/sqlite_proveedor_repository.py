@@ -16,7 +16,7 @@ class SQLiteProveedorRepository:
 
     def obtener_por_id(self, proveedor_id):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM proveedores WHERE id = ?", (proveedor_id,))
+        cursor.execute("SELECT * FROM proveedores WHERE proveedor_id = ?", (proveedor_id,))
         row = cursor.fetchone()
         if row:
             return Proveedor(id=row[0], nombre=row[1])
@@ -27,14 +27,6 @@ class SQLiteProveedorRepository:
         cursor.execute("SELECT * FROM proveedores")
         rows = cursor.fetchall()
         return [Proveedor(id=row[0], nombre=row[1]) for row in rows]
-
-    def registrar_pedido(self, proveedor_id, pedido):
-        cursor = self.conn.cursor()
-        cursor.execute(
-            "INSERT INTO pedidos (id, numero_pedido, fecha_pedido, proveedor_id) VALUES (?, ?, ?, ?)",
-            (pedido.id, pedido.numero_pedido, pedido.fecha_pedido, proveedor_id)
-        )
-        self.conn.commit()
 
     def obtener_historial_pedidos(self, proveedor_id):
         cursor = self.conn.cursor()

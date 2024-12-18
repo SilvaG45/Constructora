@@ -16,7 +16,7 @@ class SQLitePersonalRepository:
 
     def obtener_por_id(self, personal_id):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM personal WHERE id = ?", (personal_id,))
+        cursor.execute("SELECT * FROM personal WHERE personal_id = ?", (personal_id,))
         row = cursor.fetchone()
         if row:
             return Personal(
@@ -36,14 +36,14 @@ class SQLitePersonalRepository:
     def actualizar(self, personal):
         cursor = self.conn.cursor()
         cursor.execute(
-            "UPDATE personal SET nombre = ?, rol = ?, horas_trabajadas = ? WHERE id = ?",
+            "UPDATE personal SET nombre = ?, rol = ?, horas_trabajadas = ? WHERE personal_id = ?",
             (personal.nombre, personal.rol, personal.horas_trabajadas, personal.id)
         )
         self.conn.commit()
 
     def eliminar(self, personal_id):
         cursor = self.conn.cursor()
-        cursor.execute("DELETE FROM personal WHERE id = ?", (personal_id,))
+        cursor.execute("DELETE FROM personal WHERE personal_id = ?", (personal_id,))
         self.conn.commit()
 
     def asignar_a_proyecto(self, personal_id, proyecto_id):
