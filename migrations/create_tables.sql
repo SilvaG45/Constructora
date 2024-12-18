@@ -92,3 +92,16 @@ CREATE TABLE IF NOT EXISTS proyecto_personal (
     FOREIGN KEY (proyecto_id) REFERENCES proyectos (proyecto_id),
     FOREIGN KEY (personal_id) REFERENCES personal (personal_id)
 );
+
+CREATE TABLE IF NOT EXISTS inventario (
+    inventario_id INTEGER PRIMARY KEY AUTOINCREMENT
+);
+
+CREATE TABLE IF NOT EXISTS inventario_material (
+    inventario_id INTEGER NOT NULL,
+    material_id INTEGER NOT NULL,
+    cantidad INTEGER NOT NULL,
+    PRIMARY KEY (inventario_id, material_id),
+    FOREIGN KEY (inventario_id) REFERENCES inventario (inventario_id),
+    FOREIGN KEY (material_id) REFERENCES materiales (material_id)
+);
