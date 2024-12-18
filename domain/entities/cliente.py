@@ -29,3 +29,6 @@ class Cliente:
     # def obtener_proyectos(self):
     #     """Devuelve una lista de proyectos asociados al cliente."""
     #     return self.proyectos
+
+    def asignar_contrato(self, contrato):
+        self.contrato = contrato
