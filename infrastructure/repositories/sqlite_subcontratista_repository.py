@@ -3,9 +3,10 @@ from domain.entities.subcontratista import Subcontratista
 
 class SQLiteSubcontratistaRepository:
     def __init__(self):
-        self.conn = sqlite3.connect('database.db')
+        self.conn = sqlite3.connect('database.db', check_same_thread=False)
 
     def agregar(self, subcontratista):
+        print(subcontratista)
         cursor = self.conn.cursor()
         cursor.execute(
             "INSERT INTO subcontratistas (nombre, especialidad, disponible) VALUES (?, ?, ?)",

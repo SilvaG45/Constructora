@@ -1,10 +1,9 @@
 class Cliente:
-    def __init__(self, nombre, direccion, contacto, proyectos=None):
+    def __init__(self, nombre, direccion, contacto):
         self.id = None
         self.nombre = nombre
         self.direccion = direccion
         self.contacto = contacto
-        self.proyectos = proyectos if proyectos else []
 
     # def coincide_con(self, infoCliente):
     #     """Verifica que la información del cliente sea la misma que los atributos."""

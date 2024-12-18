@@ -6,7 +6,7 @@ class Proyecto:
         self._fecha_inicio = fecha_inicio
         self._fecha_estimacion_fin = fecha_estimacion_fin
         self._porcentaje_avance = porcentaje_avance
-        self._contrato = None  # Ningún contrato asignado inicialmente
+        self._contrato = None  # Ningún contrato asignado inicialmente 
         self._materiales = []  # Diccionario vacío para materiales
         self._personal_asignado = []  # Diccionario vacío para personal
         self._subcontratistas = []  # Diccionario vacío para subcontratistas

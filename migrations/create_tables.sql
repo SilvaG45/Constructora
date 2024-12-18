@@ -12,7 +12,6 @@ CREATE TABLE IF NOT EXISTS subcontratistas (
     disponible BOOLEAN DEFAULT 1
 );
 
-
 CREATE TABLE IF NOT EXISTS clientes (
     cliente_id INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT NOT NULL,
@@ -26,9 +25,9 @@ CREATE TABLE IF NOT EXISTS proyectos (
     presupuesto_inicial REAL NOT NULL,
     fecha_inicio DATE NOT NULL,
     fecha_estimacion_fin DATE NOT NULL,
-    porcentaje_avance REAL NOT NULL
+    porcentaje_avance REAL NOT NULL,
     contrato_id INTEGER, 
-    FOREIGN KEY (contrato_id) REFERENCES contratos (id)
+    FOREIGN KEY (contrato_id) REFERENCES contratos (contrato_id)
 );
 
 CREATE TABLE IF NOT EXISTS contratos (
@@ -36,10 +35,10 @@ CREATE TABLE IF NOT EXISTS contratos (
     monto REAL NOT NULL,
     condiciones TEXT NOT NULL,
     estado TEXT NOT NULL,
-    cliente_id INTEGER NOT NULL,
+    cliente_id INTEGER,
     proyecto_id INTEGER,
-    FOREIGN KEY (cliente) REFERENCES clientes(id)
-    FOREIGN KEY (proyecto) REFERENCES proyectos(id)
+    FOREIGN KEY (cliente_id) REFERENCES clientes(cliente_id)
+    FOREIGN KEY (proyecto_id) REFERENCES proyectos(proyecto_id)
 );
 
 CREATE TABLE IF NOT EXISTS proveedores (

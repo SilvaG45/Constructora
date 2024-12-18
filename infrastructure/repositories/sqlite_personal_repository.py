@@ -8,7 +8,7 @@ class SQLitePersonalRepository:
     def agregar(self, personal):
         cursor = self.conn.cursor()
         cursor.execute(
-            "INSERT INTO personal (nombre, rol, horas_trabajadas) VALUES (?, ?, ?, ?)",
+            "INSERT INTO personal (nombre, rol, horas_trabajadas) VALUES (?, ?, ?)",
             (personal.nombre, personal.rol, personal.horas_trabajadas)
         )
         personal.id = cursor.lastrowid

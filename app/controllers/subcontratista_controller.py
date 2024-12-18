@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from application.services.subcontratista_service import SubcontratistaService
 from domain.entities.subcontratista import Subcontratista
+from icecream import ic
 
 subcontratista_blueprint = Blueprint('subcontratista', __name__)
 subcontratista_service = SubcontratistaService()
@@ -9,6 +10,7 @@ subcontratista_service = SubcontratistaService()
 def registrar_subcontratista():
     data = request.json
     subcontratista = Subcontratista(**data)
+    ic(subcontratista)
     subcontratista_service.registrar_subcontratista(subcontratista)
     return jsonify({"message": "Subcontratista registrado exitosamente"}), 201
 

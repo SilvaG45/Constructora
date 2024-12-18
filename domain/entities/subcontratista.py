@@ -30,3 +30,6 @@ class Subcontratista:
             self.disponible = True
             return True
         return False
+
+    def __str__(self):
+        return f"Subcontratista {self.id}: {self.nombre} ({self.especialidad})"
