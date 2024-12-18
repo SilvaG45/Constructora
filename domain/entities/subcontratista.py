@@ -1,10 +1,10 @@
 class Subcontratista:
-    def __init__(self, nombre, especialidad, disponible=True, proyectos=None):
+    def __init__(self, nombre, especialidad, disponible=True):
         self.id = None
         self.nombre = nombre
         self.especialidad = especialidad
         self.disponible = disponible
-        self.proyectos = proyectos if proyectos is not None else []  # Inicializa si no se pasa
+        self.proyectos = []  
 
 
     def verificarDisponibilidad(self):
