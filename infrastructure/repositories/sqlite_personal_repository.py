@@ -1,5 +1,6 @@
 import sqlite3
 from domain.entities.personal import Personal
+from icecream import ic
 
 class SQLitePersonalRepository:
     def __init__(self):
@@ -31,6 +32,7 @@ class SQLitePersonalRepository:
         cursor = self.conn.cursor()
         cursor.execute("SELECT * FROM personal")
         rows = cursor.fetchall()
+        ic(rows)
         return [Personal(id=row[0], nombre=row[1], rol=row[2], horas_trabajadas=row[3]) for row in rows]
 
     def actualizar(self, personal):

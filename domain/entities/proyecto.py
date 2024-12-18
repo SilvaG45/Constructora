@@ -1,6 +1,6 @@
 class Proyecto:
-    def __init__(self, nombre, presupuesto_inicial, fecha_inicio, fecha_estimacion_fin, porcentaje_avance=0.0):
-        self._id = None  # No se asigna un id inicialmente
+    def __init__(self, nombre, presupuesto_inicial, fecha_inicio, fecha_estimacion_fin, porcentaje_avance=0.0, id=None):
+        self._id = id  # No se asigna un id inicialmente
         self._nombre = nombre
         self._presupuesto_inicial = presupuesto_inicial
         self._fecha_inicio = fecha_inicio

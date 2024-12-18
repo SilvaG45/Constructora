@@ -1,7 +1,7 @@
 import domain.entities.pedido as Pedido
 class Proveedor:    
-    def __init__(self, nombre):
-        self.id = None
+    def __init__(self, nombre, id=None):
+        self.id = id
         self.nombre = nombre
         self.materiales_suministrados = []
         self.historial_pedidos = []

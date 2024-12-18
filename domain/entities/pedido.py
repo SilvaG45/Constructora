@@ -1,7 +1,7 @@
 from datetime import date
 class Pedido:
-    def __init__(self, numero_pedido, fecha_pedido=None):
-        self.id = None
+    def __init__(self, numero_pedido, fecha_pedido=None, id=None):
+        self.id = id
         self.numero_pedido = numero_pedido
         self.fecha_pedido = fecha_pedido or date.today()
         self.materiales_suministrados = []

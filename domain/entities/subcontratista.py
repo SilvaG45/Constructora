@@ -1,6 +1,6 @@
 class Subcontratista:
-    def __init__(self, nombre, especialidad, disponible=True):
-        self.id = None
+    def __init__(self, nombre, especialidad, disponible=True, id=None):
+        self.id = id
         self.nombre = nombre
         self.especialidad = especialidad
         self.disponible = disponible
