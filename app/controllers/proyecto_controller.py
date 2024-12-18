@@ -42,17 +42,22 @@ def eliminar_proyecto(proyecto_id):
         return jsonify({"message": "Proyecto eliminado exitosamente"}), 200
     return jsonify({"error": "Proyecto no encontrado"}), 404
 
-#asignar contrato a proyecto
-@proyecto_blueprint.route('/<int:proyecto_id>/contrato/<int:contrato_id>', methods=['PUT'])
-def asignar_contrato_a_proyecto(proyecto_id, contrato_id):
+# patch para cambiar fecha de fin del proyecto
+@proyecto_blueprint.route('/<int:proyecto_id>/fecha', methods=['PATCH'])
+def cambiar_fecha_fin_proyecto(proyecto_id):
+    data = request.json
     proyecto = proyecto_service.obtener_proyecto(proyecto_id)
-    if not proyecto:
-        return jsonify({"error": "Proyecto no encontrado"}), 404
+    if proyecto:
+        proyecto_service.cambiar_fecha_fin_proyecto(proyecto_id, data)
+        return jsonify({"message": "Fecha de fin del proyecto actualizada exitosamente"}), 200
+    return jsonify({"error": "Proyecto no encontrado"}), 404
 
-    contrato = proyecto_service.obtener_contrato(contrato_id)
-    if not contrato:
-        return jsonify({"error": "Contrato no encontrado"}), 404
-
-    proyecto_service.asignar_contrato(proyecto, contrato)
-    return jsonify({"message": f"Contrato {contrato_id} asignado al proyecto {proyecto_id} exitosamente"}), 200
-
+# patch para cambiar presupuesto del proyecto
+@proyecto_blueprint.route('/<int:proyecto_id>/presupuesto', methods=['PATCH'])
+def cambiar_presupuesto(proyecto_id):
+    data = request.json
+    proyecto = proyecto_service.obtener_proyecto(proyecto_id)
+    if proyecto:
+        proyecto_service.cambiar_presupuesto(proyecto_id, data)
+        return jsonify({"message": "Presupuesto del proyecto actualizado exitosamente"}), 200
+    return jsonify({"error": "Proyecto no encontrado"}), 404

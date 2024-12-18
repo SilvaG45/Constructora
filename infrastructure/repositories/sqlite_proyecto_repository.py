@@ -53,7 +53,27 @@ class SQLiteProyectoRepository:
         )
         conn.commit()
         conn.close()
+        
+    def cambiar_fecha_fin(self, proyecto_id, data):
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+        cursor.execute(
+            "UPDATE proyectos SET fecha_estimacion_fin = ? WHERE proyecto_id = ?",
+            (data.get("fecha_estimacion_fin"), proyecto_id)
+        )
+        conn.commit()
+        conn.close()
                 
+    def cambiar_presupuesto(self, proyecto_id, data):
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+        cursor.execute(
+            "UPDATE proyectos SET presupuesto_inicial = ? WHERE proyecto_id = ?",
+            (data.get("presupuesto_inicial"), proyecto_id)
+        )
+        conn.commit()
+        conn.close()
+        
     def eliminar(self, proyecto_id):
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
