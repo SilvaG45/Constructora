@@ -1,5 +1,6 @@
 import sqlite3
 from domain.entities.proveedor import Proveedor
+from domain.entities.pedido import Pedido
 
 class SQLiteProveedorRepository:
     def __init__(self):
@@ -33,9 +34,13 @@ class SQLiteProveedorRepository:
 
     def obtener_historial_pedidos(self, proveedor_id):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM pedidos WHERE proveedor_id = ?", (proveedor_id,))
+        cursor.execute("""
+            SELECT pedido_id, proveedor_id, fecha_pedido
+            FROM pedidos
+            WHERE proveedor_id = ?
+            ORDER BY fecha_pedido DESC
+        """, (proveedor_id,))
         rows = cursor.fetchall()
-        return [
-            {"id": row[0], "numero_pedido": row[1], "fecha_pedido": row[2]}
-            for row in rows
-        ]
+        pedidos = [Pedido(id=row[0], proveedor_id=row[1], fecha_pedido=row[2]) for row in rows]
+        cursor.close()
+        return pedidos

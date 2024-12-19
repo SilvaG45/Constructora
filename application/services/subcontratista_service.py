@@ -36,3 +36,9 @@ class SubcontratistaService:
         if subcontratista:
             return subcontratista.obtenerProyectosAsignados()
         return None
+
+    def obtener_horas_trabajadas(self, subcontratista_id):
+        subcontratista = self.obtener_subcontratista(subcontratista_id)
+        if subcontratista:
+            return self.repository.obtener_horas_trabajadas(subcontratista_id)
+        return 0

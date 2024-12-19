@@ -24,7 +24,4 @@ class ProveedorService:
         return None
 
     def obtener_historial_pedidos(self, proveedor_id):
-        proveedor = self.obtener_proveedor(proveedor_id)
-        if proveedor:
-            return proveedor.obtener_historial_pedidos()
-        return None
+        return self.repository.obtener_historial_pedidos(proveedor_id)

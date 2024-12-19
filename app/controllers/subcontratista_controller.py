@@ -52,3 +52,11 @@ def asignar_proyecto():
     data = request.json
     subcontratista_service.asignar_a_proyecto(data)
     return jsonify({"message": "Proyecto asignado exitosamente"}), 201
+
+@subcontratista_blueprint.route('/<int:subcontratista_id>/horas', methods=['GET'])
+def obtener_horas_trabajadas(subcontratista_id):
+    horas = subcontratista_service.obtener_horas_trabajadas(subcontratista_id)
+    # cambiar en el atributo de la entidad personal
+    return jsonify({"horas_trabajadas": horas}), 200
+
+

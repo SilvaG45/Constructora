@@ -19,3 +19,6 @@ class PedidoService:
 
     def consultar_materiales(self, pedido_id):
         return self.repository.consultar_materiales(pedido_id)
+    
+    def obtener_historial_pedidos(self, proveedor_id):
+        return self.repository.obtener_historial_pedidos(proveedor_id)

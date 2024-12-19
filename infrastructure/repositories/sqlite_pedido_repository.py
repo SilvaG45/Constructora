@@ -60,3 +60,16 @@ class SQLitePedidoRepository:
             {"id": row[0], "nombre": row[1], "cantidad": row[2]}
             for row in rows
         ]
+        
+    def obtener_historial_pedidos(self, proveedor_id):
+        cursor = self.conn.cursor()
+        cursor.execute("""
+            SELECT pedido_id, proveedor_id, fecha_pedido,
+            FROM pedidos
+            WHERE proveedor_id = ?
+            ORDER BY fecha_pedido DESC
+        """, (proveedor_id,))
+        rows = cursor.fetchall()
+        pedidos = [Pedido(id=row[0], proveedor_id=row[1], fecha_pedido=row[2]) for row in rows]
+        cursor.close()
+        return pedidos

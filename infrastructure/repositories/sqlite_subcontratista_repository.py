@@ -77,3 +77,12 @@ class SQLiteSubcontratistaRepository:
             }
             for row in rows
         ]
+    
+    def obtener_horas_trabajadas(self, subcontratista_id):
+        cursor = self.conn.cursor()
+        cursor.execute(
+            "SELECT SUM(horas_trabajadas) FROM subcontratista_proyectos WHERE subcontratista_id = ?",
+            (subcontratista_id,)
+        )
+        row = cursor.fetchone()
+        return row[0] if row else 0
