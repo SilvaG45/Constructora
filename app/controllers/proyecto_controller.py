@@ -33,6 +33,8 @@ Listar todos los proyectos
 @proyecto_blueprint.route('/', methods=['GET'])
 def listar_proyectos():
     proyectos = proyecto_service.listar_todos()
+    for p in proyectos:
+        ic(p.__dict__)
     return jsonify([p.__dict__ for p in proyectos]), 200
 
 '''

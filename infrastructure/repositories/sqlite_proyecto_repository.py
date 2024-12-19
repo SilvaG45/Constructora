@@ -26,8 +26,7 @@ class SQLiteProyectoRepository:
         row = cursor.fetchone()
         conn.close()
         if row:
-            proyecto = Proyecto(nombre=row[1], presupuesto_inicial=row[2], fecha_inicio=row[3], fecha_estimacion_fin=row[4], porcentaje_avance=row[5])
-            proyecto.id = row[0]
+            proyecto = Proyecto(id= row[0], nombre=row[1], presupuesto_inicial=row[2], fecha_inicio=row[3], fecha_estimacion_fin=row[4], porcentaje_avance=row[5])
             return proyecto
         return None
 
@@ -36,11 +35,11 @@ class SQLiteProyectoRepository:
         cursor = conn.cursor()
         cursor.execute("SELECT proyecto_id, nombre, presupuesto_inicial, fecha_inicio, fecha_estimacion_fin, porcentaje_avance FROM proyectos")
         rows = cursor.fetchall()
+        ic(rows)
         conn.close()
         proyectos = []
         for row in rows:
-            proyecto = Proyecto(nombre=row[1], presupuesto_inicial=row[2], fecha_inicio=row[3], fecha_estimacion_fin=row[4], porcentaje_avance=row[5])
-            proyecto.id = row[0]
+            proyecto = Proyecto(id= row[0], nombre=row[1], presupuesto_inicial=row[2], fecha_inicio=row[3], fecha_estimacion_fin=row[4], porcentaje_avance=row[5])
             proyectos.append(proyecto)
         return proyectos
     
