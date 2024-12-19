@@ -1,5 +1,5 @@
 class Contrato:
-    def __init__(self, monto, condiciones, estado, proyecto=None, cliente= None,id=None):
+    def __init__(self, monto, condiciones, estado, cliente=None, proyecto= None,id=None):
         self.id = id
         self.monto = monto
         self.condiciones = condiciones

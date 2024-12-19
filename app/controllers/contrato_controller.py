@@ -9,22 +9,23 @@ contrato_service = ContratoService()
 @contrato_blueprint.route('/', methods=['POST'])
 def registrar_contrato():
     data = request.json
+    # buscar el cliente por el id y crear el contrato
+    cliente_id = data.get("cliente_id")
+    if not cliente_id:
+        return jsonify({"error": "El campo 'cliente_id' es requerido"}), 400
+    cliente= contrato_service.obtener_cliente(cliente_id)
     # buscar el proyecto por el id y crear el contrato
     proyecto_id = data.get("proyecto_id")
     if not proyecto_id:
         return jsonify({"error": "El campo 'proyecto_id' es requerido"}), 400
     proyecto= contrato_service.obtener_proyecto(proyecto_id)
-    cliente_id = data.get("cliente_id")
-    if not cliente_id:
-        return jsonify({"error": "El campo 'cliente_id' es requerido"}), 400
-    cliente= contrato_service.obtener_cliente(cliente_id)
     # creamos el contrato con los datos recibidos pero no con proyecto_id sino con el objeto proyecto
     contrato = Contrato(
         monto=data.get("monto"),
         condiciones=data.get("condiciones"),
         estado=data.get("estado"),
-        proyecto=proyecto,
-        cliente=cliente
+        cliente=cliente,
+        proyecto=proyecto
     )
     print(contrato)
     contrato_service.registrar_contrato(contrato)
