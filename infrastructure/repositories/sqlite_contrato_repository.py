@@ -40,8 +40,8 @@ class SQLiteContratoRepository:
                 monto=row[1],
                 condiciones=row[2],
                 estado=row[3],
-                proyecto=row[4],
-                cliente=row[5],
+                cliente=row[4],
+                proyecto=row[5],
                 
             ) 
             for row in rows
