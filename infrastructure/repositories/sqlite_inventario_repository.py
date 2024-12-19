@@ -29,6 +29,48 @@ class SQLiteInventarioRepository:
         pass
     
     def actualizar_inventario(self, nombre, cantidad):
+        print(nombre, cantidad, 'nombre y cantidad')
         # en inventario_material
-        pass
+        cursor= self.conn.cursor()
+        cursor.execute(
+            "UPDATE inventario_material SET cantidad = ? WHERE material_id = (SELECT material_id FROM materiales WHERE UPPER(nombre) = UPPER(?))",
+            (cantidad, nombre)
+        )
+        self.conn.commit()
     
+    def registrar_material(self, data):
+        print(data, 'data en repositorio')
+        # en inventario_material
+        cursor= self.conn.cursor()
+        cursor.execute(
+            "INSERT INTO inventario_material (inventario_id, material_id, cantidad) VALUES (?, ?, ?)",
+            (data['inventario_id'], data['material_id'], data['cantidad'])
+        )
+        self.conn.commit()
+            
+    def obtener_por_nombre(self, nombre):
+        cursor = self.conn.cursor()
+        cursor.execute("""
+            SELECT m.material_id, m.nombre, m.precio, im.cantidad
+            FROM materiales m
+            INNER JOIN inventario_material im ON m.material_id = im.material_id
+            WHERE UPPER(m.nombre) = UPPER(?)
+        """, (nombre,))
+        row = cursor.fetchone()
+        cursor.close()
+        if row:
+            return {
+                "id": row[0],
+                "nombre": row[1],
+                "precio": row[2],
+                "cantidad": row[3]
+            }
+        return None
+    
+    def actualizar_precio(self, nombre, precio):
+        cursor= self.conn.cursor()
+        cursor.execute(
+            "UPDATE materiales SET precio = ? WHERE UPPER(nombre) = UPPER(?)",
+            (precio, nombre)
+        )
+        self.conn.commit()

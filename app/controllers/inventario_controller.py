@@ -6,38 +6,50 @@ from domain.entities.material import Material
 inventario_blueprint = Blueprint('inventario', __name__)
 inventario_service = InventarioService()
 
+@inventario_blueprint.route('/', methods=['POST'])
+def registrar_inventario():
+    inventario_service.agregar_inventario()
+    return jsonify({"message": "Inventario registrado exitosamente"}), 201
+
 # Endpoint para registrar un material
 @inventario_blueprint.route('/materiales', methods=['POST'])
 def registrar_material():
-   pass
-
-# Endpoint para verificar el inventario de un material
-@inventario_blueprint.route('/materiales/<string:nombre>/verificar', methods=['POST'])
-def verificar_inventario(nombre):
-    data = request.json
-    cantidad = data.get("cantidad")
-    if cantidad is None:
-        return jsonify({"error": "El campo 'cantidad' es obligatorio"}), 400
-
+    data= request.json
+    print(data, 'data de registrar material')
+    inventario_service.registrar_material(data)
+    return jsonify({"message": "Material registrado exitosamente"}), 201
+    
+@inventario_blueprint.route('/materiales/<string:nombre>/cantidad', methods=['GET'])
+def consultar_cantidad(nombre):
     try:
-        suficiente = inventario_service.verificar_inventario(nombre, cantidad)
-        if suficiente:
-            return jsonify({"message": f"Hay suficiente inventario de '{nombre}'"}), 200
-        return jsonify({"message": f"No hay suficiente inventario de '{nombre}'"}), 400
+        material = inventario_service.consultar_cantidad(nombre)
+        cantidad= material['cantidad']
+        return jsonify({"message": f"La cantidad de {nombre} en inventario es {cantidad}"}), 200
     except ValueError as e:
         return jsonify({"error": str(e)}), 404
-
+    
 # Endpoint para actualizar la cantidad de un material
-@inventario_blueprint.route('/materiales/<string:nombre>', methods=['PATCH'])
+@inventario_blueprint.route('/materiales/<string:nombre>/cantidad', methods=['PATCH'])
 def actualizar_inventario(nombre):
     data = request.json
     cantidad = data.get("cantidad")
     if cantidad is None:
         return jsonify({"error": "El campo 'cantidad' es obligatorio"}), 400
-
     try:
         inventario_service.actualizar_inventario(nombre, cantidad)
-        return jsonify({"message": f"Inventario de '{nombre}' actualizado exitosamente"}), 200
+        return jsonify({"message": f"Inventario de {nombre} actualizado exitosamente"}), 200
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 404
+
+@inventario_blueprint.route('/materiales/<string:nombre>/precio', methods=['PATCH'])
+def actualizar_precio(nombre):
+    data = request.json
+    precio = data.get("precio")
+    if precio is None:
+        return jsonify({"error": "El campo 'precio' es obligatorio"}), 400
+    try:
+        inventario_service.actualizar_precio(nombre, precio)
+        return jsonify({"message": f"Precio de {nombre} actualizado exitosamente"}), 200
     except ValueError as e:
         return jsonify({"error": str(e)}), 404
 
