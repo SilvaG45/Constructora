@@ -38,11 +38,11 @@ class SQLitePedidoRepository:
             for row in rows
         ]
 
-    def agregar_material_a_pedido(self, pedido_id, material_id, cantidad):
+    def agregar_material_a_pedido(self, data):
         cursor = self.conn.cursor()
         cursor.execute(
             "INSERT INTO pedido_material (pedido_id, material_id, cantidad) VALUES (?, ?, ?)",
-            (pedido_id, material_id, cantidad)
+            (data["pedido_id"], data["material_id"], data["cantidad"])
         )
         self.conn.commit()
 

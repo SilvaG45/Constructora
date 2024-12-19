@@ -31,16 +31,18 @@ class SQLiteContratoRepository:
     
     def listar_todos(self):
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM clientes")
+        cursor.execute("SELECT * FROM contratos")
         rows = cursor.fetchall()
+        print(rows, 'rows')
         return [
             Contrato(
                 id=row[0],
                 monto=row[1],
                 condiciones=row[2],
                 estado=row[3],
-                cliente=row[4],
-                proyecto=row[5]
+                proyecto=row[4],
+                cliente=row[5],
+                
             ) 
             for row in rows
         ]

@@ -14,13 +14,8 @@ class PedidoService:
     def listar_todos(self):
         return self.repository.listar_todos()
 
-    def agregar_material_a_pedido(self, pedido_id, material_id, cantidad):
-        pedido = self.obtener_pedido(pedido_id)
-        if pedido:
-            pedido.agregar_material(material_id, cantidad)
-            self.repository.actualizar(pedido)
-            return pedido
-        return None
+    def agregar_material_a_pedido(self, data):
+        return self.repository.agregar_material_a_pedido(data)
 
     def consultar_materiales(self, pedido_id):
         return self.repository.consultar_materiales(pedido_id)

@@ -24,18 +24,12 @@ def listar_pedidos():
     pedidos = pedido_service.listar_todos()
     return jsonify([p.__dict__ for p in pedidos]), 200
 
-@pedido_blueprint.route('/<int:pedido_id>/materiales', methods=['POST'])
-def agregar_material_a_pedido(pedido_id):
+@pedido_blueprint.route('/materiales', methods=['POST'])
+def agregar_material_a_pedido():
     data = request.json
-    material_id = data.get("material_id")
-    cantidad = data.get("cantidad")
-    if not material_id or not cantidad:
-        return jsonify({"error": "Los campos 'material_id' y 'cantidad' son obligatorios"}), 400
-
-    pedido = pedido_service.agregar_material_a_pedido(pedido_id, material_id, cantidad)
-    if pedido:
-        return jsonify({"message": f"Material {material_id} agregado al pedido {pedido_id} exitosamente"}), 200
-    return jsonify({"error": "Pedido no encontrado"}), 404
+    pedido_service.agregar_material_a_pedido(data)
+    return jsonify({"message": "Material agregado exitosamente"}), 201
+   
 
 @pedido_blueprint.route('/<int:pedido_id>/materiales', methods=['GET'])
 def consultar_materiales(pedido_id):
