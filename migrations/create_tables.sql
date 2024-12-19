@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS pedido_material (
 CREATE TABLE IF NOT EXISTS subcontratista_proyectos (
     subcontratista_id INTEGER NOT NULL,
     proyecto_id INTEGER NOT NULL,
+    horas_trabajadas INTEGER NOT NULL,
     FOREIGN KEY (subcontratista_id) REFERENCES subcontratistas (subcontratista_id),
     FOREIGN KEY (proyecto_id) REFERENCES proyectos (proyecto_id)
 );

@@ -49,12 +49,11 @@ class SQLiteSubcontratistaRepository:
         cursor.execute("DELETE FROM subcontratistas WHERE subcontratista_id = ?", (subcontratista_id,))
         self.conn.commit()
 
-    def asignar_a_proyecto(self, subcontratista_id, proyecto_id):
-        """Asocia un subcontratista con un proyecto en la tabla subcontratista_proyectos."""
+    def asignar_a_proyecto(self, data):
         cursor = self.conn.cursor()
         cursor.execute(
-            "INSERT INTO subcontratista_proyectos (subcontratista_id, proyecto_id) VALUES (?, ?)",
-            (subcontratista_id, proyecto_id)
+            "INSERT INTO subcontratista_proyectos (subcontratista_id, proyecto_id, horas_trabajadas) VALUES (?, ?, ?)",
+            (data['subcontratista_id'], data['proyecto_id'], data['horas_trabajadas'])
         )
         self.conn.commit()
 

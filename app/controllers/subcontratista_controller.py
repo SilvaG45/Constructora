@@ -25,18 +25,6 @@ def obtener_subcontratista(subcontratista_id):
 def listar_subcontratistas():
     subcontratistas = subcontratista_service.listar_todos()
     return jsonify([s.__dict__ for s in subcontratistas]), 200
-# Endpoint para asignar un proyecto a un subcontratista
-@subcontratista_blueprint.route('/<int:subcontratista_id>/proyectos', methods=['POST'])
-def asignar_proyecto(subcontratista_id):
-    data = request.json
-    proyecto_id = data.get("proyecto_id")
-    if not proyecto_id:
-        return jsonify({"error": "El campo 'proyecto_id' es obligatorio"}), 400
-
-    subcontratista = subcontratista_service.asignar_a_proyecto(subcontratista_id, proyecto_id)
-    if subcontratista:
-        return jsonify({"message": f"Proyecto {proyecto_id} asignado a subcontratista {subcontratista_id} exitosamente"}), 200
-    return jsonify({"error": "Subcontratista no disponible o no encontrado"}), 404
 
 # Endpoint para liberar un subcontratista de un proyecto
 @subcontratista_blueprint.route('/<int:subcontratista_id>/proyectos', methods=['DELETE'])
@@ -58,3 +46,9 @@ def obtener_proyectos_asignados(subcontratista_id):
     if proyectos is not None:
         return jsonify({"proyectos": proyectos}), 200
     return jsonify({"error": "Subcontratista no encontrado"}), 404
+
+@subcontratista_blueprint.route('/proyectos', methods=['POST'])
+def asignar_proyecto():
+    data = request.json
+    subcontratista_service.asignar_a_proyecto(data)
+    return jsonify({"message": "Proyecto asignado exitosamente"}), 201

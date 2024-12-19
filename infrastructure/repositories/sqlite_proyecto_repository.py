@@ -80,3 +80,64 @@ class SQLiteProyectoRepository:
         cursor.execute("DELETE FROM proyectos WHERE proyecto_id = ?", (proyecto_id,))
         conn.commit()
         conn.close()
+        
+    def agregar_materiales(self, data):
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO proyecto_materiales (proyecto_id, material_id, cantidad) VALUES (?, ?, ?)",
+            (data['proyecto_id'], data['material_id'], data['cantidad'])
+        )
+        conn.commit()
+        conn.close()
+        
+    def obtener_materiales_proyecto(self, proyecto_id):
+        """Obtiene los materiales necesarios para un proyecto y sus cantidades disponibles."""
+        conn = sqlite3.connect('database.db')
+        cursor= conn.cursor()
+        query = """
+            SELECT pm.material_id, pm.cantidad AS requerida, im.cantidad AS disponible
+            FROM proyecto_materiales pm
+            JOIN inventario_material im ON pm.material_id = im.material_id
+            WHERE pm.proyecto_id = ?
+        """
+        cursor.execute(query, (proyecto_id,))
+        return cursor.fetchall()
+    
+    def descontar_materiales(self, proyecto_id):
+        """Descuenta los materiales del inventario después de verificar su disponibilidad."""
+        cursor = self.conn.cursor()
+        query = """
+            UPDATE inventario_material
+            SET cantidad = cantidad - (
+                SELECT pm.cantidad
+                FROM proyecto_materiales pm
+                WHERE pm.material_id = inventario_material.material_id
+                AND pm.proyecto_id = ?
+            )
+            WHERE material_id IN (
+                SELECT material_id
+                FROM proyecto_materiales
+                WHERE proyecto_id = ?
+            )
+        """
+        cursor.execute(query, (proyecto_id, proyecto_id))
+        self.conn.commit()
+        
+        
+    def verificar_disponibilidad_materiales(self, proyecto_id):
+        cursor = self.conn.cursor()
+        query = """
+            SELECT pm.material_id, pm.cantidad, im.cantidad AS disponible
+            FROM proyecto_materiales pm
+            JOIN inventario_material im ON pm.material_id = im.material_id
+            WHERE pm.proyecto_id = ?
+        """
+        cursor.execute(query, (proyecto_id,))
+        materiales = cursor.fetchall()
+
+        # Verificar si todos los materiales tienen suficiente cantidad
+        for material in materiales:
+            if material[1] > material[2]:  # Cantidad requerida > Cantidad disponible
+                return False, material[0]  # Retornar False y el ID del material insuficiente
+        return True, None

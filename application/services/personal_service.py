@@ -20,16 +20,17 @@ class PersonalService:
     def eliminar_personal(self, personal_id):
         self.repository.eliminar(personal_id)
 
-    def asignar_a_proyecto(self, personal_id, proyecto):
-        personal = self.obtener_personal(personal_id)
-        if personal:
-            personal.asignarAProyecto(proyecto)
-            self.actualizar_personal(personal)
-            return personal
-        return None
+    def asignar_a_proyecto(self, data):
+       return self.repository.asignar_a_proyecto(data)
 
     def obtener_proyectos_asignados(self, personal_id):
         personal = self.obtener_personal(personal_id)
         if personal:
             return personal.obtenerProyectosAsignados()
         return None
+
+    def obtener_horas_trabajadas(self, personal_id):
+        personal = self.obtener_personal(personal_id)
+        if personal:
+            return self.repository.obtener_horas_trabajadas(personal_id)
+        return 0

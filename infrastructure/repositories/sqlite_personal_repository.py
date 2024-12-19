@@ -48,12 +48,11 @@ class SQLitePersonalRepository:
         cursor.execute("DELETE FROM personal WHERE personal_id = ?", (personal_id,))
         self.conn.commit()
 
-    def asignar_a_proyecto(self, personal_id, proyecto_id):
-        """Asocia un personal con un proyecto en la tabla personal_proyectos."""
+    def asignar_a_proyecto(self, data):
         cursor = self.conn.cursor()
         cursor.execute(
-            "INSERT INTO personal_proyectos (personal_id, proyecto_id) VALUES (?, ?)",
-            (personal_id, proyecto_id)
+            "INSERT INTO proyecto_personal (personal_id, proyecto_id, horas_trabajadas) VALUES (?, ?, ?)",
+            (data['personal_id'], data['proyecto_id'], data['horas_trabajadas'])
         )
         self.conn.commit()
 
@@ -77,4 +76,11 @@ class SQLitePersonalRepository:
             }
             for row in rows
         ]
+        
+    def obtener_horas_trabajadas(self, personal_id):
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT SUM(horas_trabajadas) FROM proyecto_personal WHERE personal_id = ?", (personal_id,))
+        row = cursor.fetchone()
+        return row[0] if row else 0
+    
     

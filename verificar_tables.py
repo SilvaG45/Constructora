@@ -12,6 +12,9 @@ tables = cursor.fetchall()
 print("Tablas en la base de datos:")
 for table in tables:
     print(table[0])
+    
+# cursor.execute(f"DROP TABLE IF EXISTS subcontratista_proyectos")
+# conn.commit()
 
 # Cerrar la conexión
 conn.close()
