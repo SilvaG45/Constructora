@@ -22,8 +22,7 @@ class SQLiteMaterialRepository:
             return Material(
                 id=row[0],
                 nombre=row[1],
-                cantidad_disponible=row[2],
-                precio=row[3]
+                precio=row[2]
             )
         return None
 

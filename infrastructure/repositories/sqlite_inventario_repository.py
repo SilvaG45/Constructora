@@ -35,8 +35,20 @@ class SQLiteInventarioRepository:
         ]
     
     def listar_materiales(self):
-        # en inventario_material
-        pass
+       cursor= self.conn.cursor()
+       cursor.execute(
+              "SELECT m.material_id, m.nombre, m.precio, im.cantidad FROM materiales m INNER JOIN inventario_material im ON m.material_id = im.material_id"
+         )
+       rows = cursor.fetchall()
+       return [
+              {
+                "id": row[0],
+                "nombre": row[1],
+                "precio": row[2],
+                "cantidad": row[3]
+              }
+              for row in rows
+         ]
     
     def actualizar_inventario(self, nombre, cantidad):
         print(nombre, cantidad, 'nombre y cantidad')

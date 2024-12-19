@@ -70,4 +70,6 @@ def actualizar_precio(nombre):
 @inventario_blueprint.route('/materiales', methods=['GET'])
 def listar_materiales():
     materiales = inventario_service.listar_materiales()
-    return jsonify([material.__dict__ for material in materiales]), 200
+    print(materiales, 'materiales')
+   # retornar los materiales que es un diccionario
+    return jsonify([m for m in materiales]), 200
