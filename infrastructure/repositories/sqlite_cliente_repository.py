@@ -67,3 +67,9 @@ class SQLiteClienteRepository:
         )
         self.agregar(cliente)
         return True
+    
+    def eliminar(self, cliente_id):
+        cursor = self.conn.cursor()
+        cursor.execute("DELETE FROM clientes WHERE cliente_id = ?", (cliente_id,))
+        self.conn.commit()
+        return True

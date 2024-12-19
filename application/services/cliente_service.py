@@ -32,4 +32,7 @@ class ClienteService:
         cliente = self.repository.obtener_por_id(cliente_id)
         return cliente.proyectos if cliente else []
     
+    def eliminar_cliente(self, cliente_id):
+        self.repository.eliminar(cliente_id)
+    
     

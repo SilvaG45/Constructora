@@ -20,9 +20,19 @@ class SQLiteInventarioRepository:
         if row:
             return Inventario(
                 id=row[0],
-                materiales=row[1],
             )  
         return None
+    
+    def listar_inventarios(self):
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT * FROM inventario")
+        rows = cursor.fetchall()
+        return [
+            Inventario(
+                id=row[0],
+            ) 
+            for row in rows
+        ]
     
     def listar_materiales(self):
         # en inventario_material

@@ -42,3 +42,8 @@ def obtener_proyectos(cliente_id):
     if proyectos:
         return jsonify(proyectos), 200
     return jsonify({"error": "No se encontraron proyectos para este cliente"}), 404
+
+@cliente_blueprint.route('/<int:cliente_id>', methods=['DELETE'])
+def eliminar_cliente(cliente_id):
+    cliente_service.eliminar_cliente(cliente_id)
+    return jsonify({"message": "Cliente eliminado exitosamente"}), 200

@@ -11,6 +11,19 @@ def registrar_inventario():
     inventario_service.agregar_inventario()
     return jsonify({"message": "Inventario registrado exitosamente"}), 201
 
+@inventario_blueprint.route('/<int:inventario_id>', methods=['GET'])
+def obtener_inventario(inventario_id):
+    inventario = inventario_service.obtener_inventario(inventario_id)
+    if inventario:
+        return jsonify(inventario.__dict__), 200
+    return jsonify({"error": "Inventario no encontrado"}), 404
+
+@inventario_blueprint.route('/', methods=['GET'])
+def obtener_inventarios():
+    inventarios = inventario_service.listar_inventarios()
+    return jsonify([i.__dict__ for i in inventarios
+    ]), 200
+
 # Endpoint para registrar un material
 @inventario_blueprint.route('/materiales', methods=['POST'])
 def registrar_material():

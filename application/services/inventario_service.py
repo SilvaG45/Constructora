@@ -9,7 +9,10 @@ class InventarioService:
         return self.inventario_repository.agregar_inventario()
     
     def obtener_inventario(self, inventario_id):
-        return self.inventario_repository.obtener_por_id(inventario_id)
+        return self.inventario_repository.obtener_inventario(inventario_id)
+    
+    def listar_inventarios(self):
+        return self.inventario_repository.listar_inventarios()
     
     def listar_materiales(self):
         return self.inventario_repository.listar_materiales()
