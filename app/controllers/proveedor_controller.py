@@ -9,6 +9,7 @@ proveedor_service = ProveedorService()
 def registrar_proveedor():
     data = request.json
     proveedor = Proveedor(**data)
+    print(proveedor, 'proveedor')
     proveedor_service.registrar_proveedor(proveedor)
     return jsonify({"message": "Proveedor registrado exitosamente"}), 201
 

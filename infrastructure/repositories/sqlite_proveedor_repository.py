@@ -6,13 +6,16 @@ class SQLiteProveedorRepository:
         self.conn = sqlite3.connect('database.db', check_same_thread=False)
 
     def agregar(self, proveedor):
+        print(proveedor, 'proveedor en repositorio')
+        print(proveedor.nombre, 'nombre en repositorio')
         cursor = self.conn.cursor()
         cursor.execute(
             "INSERT INTO proveedores (nombre) VALUES (?)",
-            (proveedor.nombre)
+            (proveedor.nombre,)
         )
         proveedor.id = cursor.lastrowid
         self.conn.commit()
+        cursor.close()
 
     def obtener_por_id(self, proveedor_id):
         cursor = self.conn.cursor()

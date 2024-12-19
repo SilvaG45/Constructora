@@ -6,6 +6,7 @@ class ProveedorService:
         self.repository = SQLiteProveedorRepository()
 
     def registrar_proveedor(self, proveedor):
+        print(proveedor, 'proveedor en service')
         self.repository.agregar(proveedor)
 
     def obtener_proveedor(self, proveedor_id):
